@@ -4,9 +4,9 @@ const BASE_URL = 'https://www.dnd5eapi.co/api/monsters';
 const BASE_DOMAIN = 'https://www.dnd5eapi.co';
 
 async function getMonstersList(limit) {
-    const response = await fetch(${BASE_URL}?limit=${limit});
+    const response = await fetch(`${BASE_URL}?limit=${limit}`);
     if (!response.ok) {
-        throw new Error(Error HTTP ${response.status} al cargar la lista);
+        throw new Error(`Error HTTP ${response.status} al cargar la lista`);
     }
     const data = await response.json();
     return data.results;
@@ -15,7 +15,7 @@ async function getMonstersList(limit) {
 async function getMonsterDetails(monsterUrl) {
     const response = await fetch(monsterUrl);
     if (!response.ok) {
-        throw new Error(Error HTTP ${response.status} al cargar detalles);
+        throw new Error(`Error HTTP ${response.status} al cargar detalles`);
     }
     return response.json();
 }
@@ -98,3 +98,6 @@ async function main() {
 }
 
 main();
+
+
+
