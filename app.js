@@ -18,6 +18,23 @@ async function getMonsterDetails(monsterUrl) {
     return response.json();
 }
 
+function getAC(armor_class) {
+  if (Array.isArray(armor_class)) return armor_class[0]?.value ?? 0;
+  return armor_class ?? 0;
+}
+
+function getMaxSpeed(speed) {
+  const parse = (val) => parseInt(val) || 0;
+  return Math.max(
+    parse(speed?.walk),
+    parse(speed?.fly),
+    parse(speed?.swim),
+    parse(speed?.burrow),
+    parse(speed?.climb)
+  );
+}
+
+
 
 function extractDetail(m) {
   return {
