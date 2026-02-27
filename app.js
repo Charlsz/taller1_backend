@@ -94,9 +94,14 @@ async function loadMonsters(limit) {
 }
 
 async function main() {
-    const limit = 40;
-    await loadMonsters(limit);
-    console.log('Carga de monstruos completada');
+    const totalLoaded = 40;
+    const display = parseInt(process.argv[2]) || totalLoaded;
+
+    const monstersList = await getMonstersList(totalLoaded);
+    const monsterUrls = monstersList.slice(0, display).map(m => `${BASE_DOMAIN}${m.url}`);
+    const monsters = await fetchAllDetails(monsterUrls);
+    console.log(monsters);
+    console.log(`Mostrando ${monsters.length} de ${totalLoaded} monstruos cargados`);
 }
 
 main();
