@@ -1,10 +1,12 @@
+const { runQueriesB } = require('./queries');
+
 const BASE_URL = 'https://www.dnd5eapi.co/api/monsters';
 const BASE_DOMAIN = 'https://www.dnd5eapi.co';
 
 async function getMonstersList(limit) {
-    const response = await fetch(`${BASE_URL}?limit=${limit}`);
+    const response = await fetch(${BASE_URL}?limit=${limit});
     if (!response.ok) {
-        throw new Error(`Error HTTP ${response.status} al cargar la lista`);
+        throw new Error(Error HTTP ${response.status} al cargar la lista);
     }
     const data = await response.json();
     return data.results;
@@ -13,7 +15,7 @@ async function getMonstersList(limit) {
 async function getMonsterDetails(monsterUrl) {
     const response = await fetch(monsterUrl);
     if (!response.ok) {
-        throw new Error(`Error HTTP ${response.status} al cargar detalles`);
+        throw new Error(Error HTTP ${response.status} al cargar detalles);
     }
     return response.json();
 }
@@ -82,16 +84,6 @@ async function fetchAllDetails(monsterUrls, batchSize = 3, delayMs = 500) {
     return results;
 }
 
-async function loadMonsters(limit) {
-    try {
-        const monstersList = await getMonstersList(limit);
-        const monsterUrls = monstersList.map(m => `${BASE_DOMAIN}${m.url}`);
-        const detailedMonsters = await fetchAllDetails(monsterUrls);
-        console.log(detailedMonsters);
-    } catch (error) {
-        console.error('Error al cargar monstruos:', error);
-    }
-}
 
 async function main() {
     const totalLoaded = 40;
@@ -102,6 +94,7 @@ async function main() {
     const monsters = await fetchAllDetails(monsterUrls);
     console.log(monsters);
     console.log(`Mostrando ${monsters.length} de ${totalLoaded} monstruos cargados`);
+    runQueriesB(monsters);
 }
 
 main();
